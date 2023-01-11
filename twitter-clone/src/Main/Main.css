@@ -1,0 +1,9 @@
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 780px;
+    gap: 55px;
+    margin-bottom: auto;
+    padding-top: 144px;
+}

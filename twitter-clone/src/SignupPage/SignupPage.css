@@ -1,0 +1,31 @@
+h1 {
+    margin-bottom: 46px;
+}
+
+.signup-page__form-wrapper {
+    background: #FFFFFF;
+    border: 2px solid #42434B;
+    border-radius: 8px;
+    max-width: 520px;
+    width: 100%;
+    padding: 28px 46px 40px;
+}
+
+.signup-page__form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.signup-page__button {
+    align-self: flex-end;
+}
+
+.signup-page__footer {
+    margin-top: 22px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 30px;
+    color: #42434B;
+}
