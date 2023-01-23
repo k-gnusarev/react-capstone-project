@@ -10,7 +10,7 @@ input[type="submit"] {
     align-self: flex-end;
 }
 
-textarea {
+input[type="textarea"] {
     font-family: inherit;
     height: 120px;
     font-style: normal;

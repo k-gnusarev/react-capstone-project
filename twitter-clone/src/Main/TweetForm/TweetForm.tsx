@@ -1,22 +1,40 @@
 import React from "react";
 import './TweetForm.css'
-import TextInput from "../../common/TextInput/TextInput";
 import Button from "../../common/Button/Button";
+import {ErrorMessage, Form, Formik} from "formik";
+import TweetTextInput from "./TweetTextInput/TweetTextInput";
+import {TweetValidationSchema} from "../../validation/validationSchema";
+import SubmitButton from "../../common/Button/Button";
 
 const TweetForm = () => {
+  //const [field, meta] = useField()
   const handleSubmitTweet = (e: Event) => {
     e.preventDefault()
     console.log('tweet sent')
   }
 
   return (
-    <form className='container'>
-      <textarea
-        id='tweetTextField'
-        placeholder="What's happening?"
-      />
-      <Button type='submit' value='Tweet' onClick={handleSubmitTweet} />
-    </form>
+    <Formik
+      initialValues={{
+        tweetText: ''
+      }}
+      validationSchema={TweetValidationSchema}
+      onSubmit={(values) => console.log(values)}
+    >
+      {
+        ({errors, touched}) => {
+          return (
+            <Form
+              className='container'
+            >
+              <TweetTextInput/>
+              {touched.tweetText && errors.tweetText && <ErrorMessage name='tweetText'/>}
+              <SubmitButton value='Tweet'/>
+            </Form>
+          )
+        }
+      }
+    </Formik>
   )
 }
 

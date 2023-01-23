@@ -1,8 +1,10 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import Button from "../common/Button/Button";
 import './SignupPage.css';
 import TextInput from "../common/TextInput/TextInput";
+import SubmitButton from "../common/Button/Button";
+import {Form, Formik} from "formik";
+import {SignupValidationSchema} from "../validation/validationSchema";
 
 const SignupPage = () => {
   const handleSignup = () => {
@@ -17,29 +19,58 @@ const SignupPage = () => {
         <h1>
           Sign up
         </h1>
-        <form
-          className='signup-page__form'
+        <Formik
+          initialValues={{
+            login: '',
+            password: '',
+            fullName: '',
+            username: ''
+          }}
+          validationSchema={SignupValidationSchema}
+          onSubmit={(values) => console.log(values)}
         >
-          <TextInput
-            placeholder='Email'
-          />
-          <TextInput
-            placeholder='Password'
-            type='password'
-          />
-          <TextInput
-            placeholder='Username'
-          />
-          <TextInput
-            placeholder='Full name'
-          />
-          <Button
-            className='signup-page__button'
-            type='submit'
-            value='Sign up'
-            onClick={handleSignup}
-          />
-        </form>
+          {
+            ({touched, errors}) => {
+              return (
+                <Form
+                  className='signup-page__form'
+                >
+
+                  <TextInput
+                    placeholder='Email'
+                    name='login'
+                    touched={touched.login}
+                    errors={errors.login}
+                  />
+                  <TextInput
+                    placeholder='Password'
+                    type='password'
+                    name='password'
+                    touched={touched.password}
+                    errors={errors.password}
+                  />
+                  <TextInput
+                    placeholder='Username'
+                    name='username'
+                    touched={touched.username}
+                    errors={errors.username}
+                  />
+                  <TextInput
+                    placeholder='Full name'
+                    name='fullName'
+                    touched={touched.fullName}
+                    errors={errors.fullName}
+                  />
+                  <SubmitButton
+                    className='signup-page__button'
+                    value='Sign up'
+                  />
+                </Form>
+              )
+            }
+
+          }
+        </Formik>
       </div>
       <p
         className='signup-page__footer'
