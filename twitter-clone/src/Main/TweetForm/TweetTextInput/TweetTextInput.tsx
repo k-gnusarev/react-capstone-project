@@ -7,7 +7,7 @@ const TweetTextInput = () => {
   return (
     <Field
       type='textarea'
-      name='tweetText'
+      name='text'
       placeholder="What's happening?"
     />
   )

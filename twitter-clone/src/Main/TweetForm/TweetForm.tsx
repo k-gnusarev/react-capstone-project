@@ -1,25 +1,36 @@
-import React from "react";
+import React, {FC} from "react";
 import './TweetForm.css'
-import Button from "../../common/Button/Button";
 import {ErrorMessage, Form, Formik} from "formik";
 import TweetTextInput from "./TweetTextInput/TweetTextInput";
 import {TweetValidationSchema} from "../../validation/validationSchema";
 import SubmitButton from "../../common/Button/Button";
+import {bindActionCreators} from "redux";
+import * as tweetsActions from "../../redux/actions/tweetsActions";
+import {connect} from "react-redux";
 
-const TweetForm = () => {
+const TweetForm: FC<{
+  actions: any
+}> = (props) => {
+  const {actions} = props
   //const [field, meta] = useField()
-  const handleSubmitTweet = (e: Event) => {
-    e.preventDefault()
-    console.log('tweet sent')
+  const handleSubmitTweet = (tweetData: any) => {
+    actions
+      .addTweet(tweetData)
+      .catch((error: Error) => {
+        console.error(error)
+      })
   }
 
   return (
     <Formik
       initialValues={{
-        tweetText: ''
+        text: ''
       }}
       validationSchema={TweetValidationSchema}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(formData, {resetForm}) => {
+        handleSubmitTweet(formData)
+        resetForm()
+      }}
     >
       {
         ({errors, touched}) => {
@@ -28,7 +39,7 @@ const TweetForm = () => {
               className='container'
             >
               <TweetTextInput/>
-              {touched.tweetText && errors.tweetText && <ErrorMessage name='tweetText'/>}
+              {touched.text && errors.text && <ErrorMessage name='tweetText'/>}
               <SubmitButton value='Tweet'/>
             </Form>
           )
@@ -38,4 +49,22 @@ const TweetForm = () => {
   )
 }
 
-export default TweetForm
+function mapStateToProps(state: any) {
+  return {
+    user: state.user
+  }
+}
+
+function mapDispatchToProps(dispatch: any) {
+  return {
+    actions: {
+      addTweet: bindActionCreators(tweetsActions.addTweet, dispatch)
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TweetForm);
+

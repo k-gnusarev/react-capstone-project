@@ -1,0 +1,5 @@
+export const LOAD_USERS = 'LOAD_USERS_OK'
+export const LOAD_TWEETS = 'LOAD_TWEETS_OK'
+export const ADD_TWEET = 'ADD_TWEET_OK'
+export const UPDATE_TWEETS = 'UPDATE_TWEETS_OK'
+export const ADD_USER = 'ADD_USER'

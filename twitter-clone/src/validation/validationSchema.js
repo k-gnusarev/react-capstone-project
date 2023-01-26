@@ -11,14 +11,14 @@ const errorMessages = {
 }
 
 export const SignupValidationSchema = Yup.object({
-  login: Yup.string()
+  email: Yup.string()
     .email(errorMessages.email)
     .required(errorMessages.required),
   password: Yup.string()
     .min(8, errorMessages.min8)
     .max(256, errorMessages.max256)
     .required(errorMessages.required),
-  fullName: Yup.string()
+  name: Yup.string()
     .min(1, errorMessages.min1)
     .max(512, errorMessages.max512),
   username: Yup.string()
@@ -35,7 +35,7 @@ export const LoginValidationSchema = Yup.object({
 });
 
 export const TweetValidationSchema = Yup.object({
-  tweetText: Yup.string()
+  text: Yup.string()
     .min(1, errorMessages.min1)
     .max(140, errorMessages.max140)
 });

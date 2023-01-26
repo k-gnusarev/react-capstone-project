@@ -5,24 +5,19 @@ import {Route, Routes} from 'react-router-dom';
 import SignupPage from "./SignupPage/SignupPage";
 import Main from './Main/Main';
 import NotFoundPage from "./common/NotFound/NotFoundPage";
-import getData from "./helpers/getData";
+import {bindActionCreators} from "redux";
+import * as usersActions from './redux/actions/usersActions'
+import {connect} from "react-redux";
 
-function App() {
-  const [tweets, setTweets] = useState([])
-  const [users, setUsers] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+function App(props: any) {
+  const {actions, users} = props
 
   useEffect(() => {
-    Promise.all([
-      getData('tweets'),
-      getData('users')
-    ])
-      .then(res => console.log(res))
-    const response = getData('tweets')
-      .then(res => {
-        setTweets(res)
-        setIsLoading(false)
-      })
+    if (users.length === 0) {
+      actions
+        .loadUsers()
+        .catch((error: any) => console.error(error))
+    }
   }, [])
 
   return (
@@ -30,26 +25,40 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={<Main
-            isLoading={isLoading}
-            tweets={tweets}
-          />}
+          element={<Main />}
         />
         <Route
           path='/login'
-          element={<LoginPage />}
+          element={<LoginPage/>}
         />
         <Route
           path='/signup'
-          element={<SignupPage />}
+          element={<SignupPage/>}
         />
         <Route
           path='*'
-          element={<NotFoundPage />}
+          element={<NotFoundPage/>}
         />
       </Routes>
     </div>
   );
 }
 
-export default App;
+function mapStateToProps(state: any) {
+  return {
+    users: state.users
+  }
+}
+
+function mapDispatchToProps(dispatch: any) {
+  return {
+    actions: {
+      loadUsers: bindActionCreators(usersActions.loadUsers, dispatch)
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

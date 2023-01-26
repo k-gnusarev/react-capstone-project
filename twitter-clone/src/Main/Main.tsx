@@ -6,23 +6,14 @@ import './Main.css'
 import Loader from "../common/Loader/Loader";
 import {TweetType} from "../types/types";
 
-const Main: FC<{
-  isLoading: boolean,
-  tweets: TweetType[]
-}> = (props) => {
-
-  const {tweets, isLoading} = props
+const Main = () => {
 
   return (
     <>
       <Header/>
       <main>
         <TweetForm/>
-        {isLoading
-          ? <Loader/>
-          : <TweetFeed
-            tweets={tweets}
-          />}
+        <TweetFeed/>
       </main>
     </>
   )
