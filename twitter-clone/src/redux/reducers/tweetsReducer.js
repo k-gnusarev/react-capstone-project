@@ -8,8 +8,6 @@ const tweetsReducer = (state = initialState.tweets, action) => {
     }
     case types.ADD_TWEET: {
       const {tweet} = action
-      console.log(action)
-      console.log(state)
       return [
         ...state,
         tweet

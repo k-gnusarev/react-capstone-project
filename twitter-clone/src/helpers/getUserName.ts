@@ -1,22 +1,5 @@
 import {UserType} from "../types/types";
-
-const mockTweets = [
-  {
-    "id": "1",
-    "author_id": "johnsmith",
-    "text": "What are the pros of object-oriented programming?<br><br>Please, explain as if I'm 5."
-  },
-  {
-    "id": "2",
-    "author_id": "carlanotarobot",
-    "text": "Why use a debugger when you can fill your code with hundreds of <code>print()</code> statements?"
-  },
-  {
-    "id": "3",
-    "author_id": "ameliawarner",
-    "text": "Describe your relationship with JavaScript with one word."
-  }
-]
+import {store} from "../index";
 
 const mockUsers = [
   {
@@ -36,8 +19,8 @@ const mockUsers = [
   }
 ]
 
-const getUserName = (authorId: string): string => {
-  const matchingUser = mockUsers.find(user => user.id === authorId)
+const getUserName = (authorId: string, users: UserType[]): string => {
+  const matchingUser = users.find((user: UserType) => user.id === authorId)
 
   if (matchingUser!.name) {
     return matchingUser!.name

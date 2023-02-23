@@ -9,20 +9,22 @@ import Loader from "../../common/Loader/Loader";
 
 const TweetFeed: FC<{
   tweets: TweetType[],
+  isAuthenticated: boolean,
   actions: any
 }> = (props) => {
-  const {actions, tweets} = props;
+  const {actions, tweets, isAuthenticated} = props;
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    actions
-      .loadTweets()
-      .then(() => {
+    if (isAuthenticated) {
+      actions
+        .loadTweets()
+        .then(() => {
 
-        console.log(tweets)
-        setIsLoading(false)
-      })
-      .catch((error: any) => console.error(error))
+          setIsLoading(false)
+        })
+        .catch((error: any) => console.error(error))
+    }
   }, [])
   return (
     <div
@@ -47,7 +49,8 @@ const TweetFeed: FC<{
 
 function mapStateToProps(state: any) {
   return {
-    tweets: state.tweets
+    tweets: state.tweets,
+    isAuthenticated: state.isAuthenticated
   }
 }
 

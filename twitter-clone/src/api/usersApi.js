@@ -16,5 +16,17 @@ export const addUser = (user) => {
     },
     body
   })
+    .then(handleResponse)
+    .catch(handleError)
+}
+
+export const getUser = user => {
+  return fetch(BASE_URL + `users/${user}`, {
+    headers: {
+      "content-type": "application/json"
+    }
+  })
+
+    .then(handleResponse)
     .catch(handleError)
 }

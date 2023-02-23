@@ -3,10 +3,16 @@ import './Header.css'
 import logo from './assets/logo.svg'
 import getInitials from "../../helpers/getInitials";
 import getUserName from "../../helpers/getUserName";
+import {store} from "../../index";
+import {connect} from "react-redux";
+import {UserType} from "../../types/types";
 
-const Header: FC<any> = (props) => {
-  const currentUsername = 'John Smith' // load from context
+const Header: FC<{
+  currentUser: UserType
+}> = (props) => {
+  //const currentUsername = 'John Smith' // load from context
 
+  const {currentUser} = props
   return (
     <header>
       <div className='header__logo-section'>
@@ -15,14 +21,23 @@ const Header: FC<any> = (props) => {
       </div>
       <div className='header__avatar-section'>
         <span>
-          {currentUsername}
+          {/*{currentUser.name}*/}
+          {'John Smith'}
+          {/*{getUserName(currentUsername, store.getState().users)}*/}
         </span>
         <div className='header__avatar' >
-          {getInitials(currentUsername)}
+          {'JS'}
+          {/*{getInitials(currentUser.name as string)}*/}
         </div>
       </div>
     </header>
   )
 }
 
-export default Header
+function mapStateToProps(state: any) {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps)(Header)

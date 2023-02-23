@@ -12,7 +12,6 @@ const TweetForm: FC<{
   actions: any
 }> = (props) => {
   const {actions} = props
-  //const [field, meta] = useField()
   const handleSubmitTweet = (tweetData: any) => {
     actions
       .addTweet(tweetData)

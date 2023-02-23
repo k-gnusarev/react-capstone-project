@@ -10,7 +10,6 @@ const loadTweetsAction = (tweets) => {
 }
 
 const addTweetAction = (tweet) => {
-  console.log(tweet)
   return {
     type: types.ADD_TWEET,
     tweet
@@ -35,7 +34,6 @@ export const addTweet = (tweet) => {
     return tweetsApi
       .addTweet(tweet)
       .then((tweet) => {
-        console.log(tweet)
         dispatch(addTweetAction(tweet))
       })
       .catch(error => {

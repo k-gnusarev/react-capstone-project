@@ -204,6 +204,11 @@
       "author_id": "johnsmith",
       "text": "this is a <b>strong</b> ",
       "id": "-1MtLVN"
+    },
+    {
+      "author_id": "johnsmith",
+      "text": "rereerre",
+      "id": "l593Bzf"
     }
   ],
   "users": [
@@ -221,24 +226,6 @@
       "id": "ameliawarner",
       "name": "Amelia Warner",
       "email": "ameliawarner@yahoo.com"
-    },
-    {
-      "email": "test@user.com",
-      "password": "12345678",
-      "name": "Test User",
-      "id": "testuser"
-    },
-    {
-      "email": "test2@gmail.com",
-      "password": "12345678",
-      "name": "Test User",
-      "id": "testuser2"
-    },
-    {
-      "email": "test3@user.com",
-      "password": "12345678",
-      "name": "Test User",
-      "id": "testuser3"
     }
   ]
 }

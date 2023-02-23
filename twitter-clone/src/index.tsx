@@ -7,22 +7,15 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import configureStore from './redux/configureStore';
 
-const store = configureStore()
-export const CurrentUserContext = createContext({
-  user: null,
-})
+export const store = configureStore()
 
 ReactDOM.render(
   <React.StrictMode>
-    <CurrentUserContext.Provider
-      value={{user: null}}
-    >
-      <Provider store={store}>
-        <BrowserRouter>
-          <App/>
-        </BrowserRouter>
-      </Provider>
-    </CurrentUserContext.Provider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

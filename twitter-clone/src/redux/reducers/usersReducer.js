@@ -8,10 +8,10 @@ const usersReducer = (state = initialState.users, action) => {
     }
     case types.ADD_USER: {
       const {user} = action
-      return {
+      return [
         ...state,
         user
-      }
+      ]
     }
     default:
       return state

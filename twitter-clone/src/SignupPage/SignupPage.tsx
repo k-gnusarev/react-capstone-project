@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useContext, useEffect} from "react";
 import {Link, redirect, useNavigate} from "react-router-dom";
 import './SignupPage.css';
 import TextInput from "../common/TextInput/TextInput";
@@ -7,20 +7,34 @@ import {Form, Formik} from "formik";
 import {SignupValidationSchema} from "../validation/validationSchema";
 import {bindActionCreators} from "redux";
 import * as usersActions from "../redux/actions/usersActions";
+import * as currentUserActions from "../redux/actions/currentUserActions";
+import * as isAuthenticatedActions from "../redux/actions/isAuthenticatedActions";
 import {connect} from "react-redux";
 import {UserType} from "../types/types";
+import * as types from '../redux/actions/actionTypes'
+import {store} from "../index";
+import {setIsAuthenticated} from "../redux/actions/isAuthenticatedActions";
 
 const SignupPage: FC<{
-  actions: any
+  actions: any,
+  currentUser: boolean
 }> = (props) => {
-  const {actions} = props
+  const {actions, currentUser} = props
   const navigate = useNavigate()
 
   const handleSubmit = (userData: UserType) => {
     actions
       .addUser(userData)
       .then(() => {
-        navigate('/')
+        actions
+          .setCurrentUser({
+            id: userData.id,
+            name: userData.name
+          })
+
+        actions
+          .setIsAuthenticated(true)
+
       })
       .catch((error: Error) => {
         console.error(error)
@@ -104,14 +118,17 @@ const SignupPage: FC<{
 
 function mapStateToProps(state: any) {
   return {
-    user: state.user
+    user: state.user,
+    currentUser: state.currentUser
   }
 }
 
 function mapDispatchToProps(dispatch: any) {
   return {
     actions: {
-      addUser: bindActionCreators(usersActions.addUser, dispatch)
+      addUser: bindActionCreators(usersActions.addUser, dispatch),
+      setCurrentUser: bindActionCreators(currentUserActions.setCurrentUser, dispatch),
+      setIsAuthenticated: bindActionCreators(isAuthenticatedActions.setIsAuthenticated, dispatch)
     }
   }
 }

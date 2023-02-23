@@ -5,8 +5,8 @@ export type TweetType = {
 }
 
 export type UserType = {
-  email: string,
+  email?: string,
   id?: string,
-  name: string
+  name?: string
   password?: string
 }

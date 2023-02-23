@@ -1,12 +1,14 @@
 import {combineReducers} from "redux";
 import tweets from './tweetsReducer'
 import users from './usersReducer'
-import apiStatusReducer from "./apiStatusReducer";
+import isAuthenticated from './isAuthenticatedReducer'
+import currentUser from './currentUserReducer'
 
 const rootReducer = combineReducers({
   tweets,
   users,
-  apiStatusReducer
+  currentUser,
+  isAuthenticated
 })
 
 export default rootReducer
