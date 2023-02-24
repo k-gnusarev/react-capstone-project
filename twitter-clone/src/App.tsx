@@ -36,12 +36,6 @@ function App(props: any) {
     }
   }, [currentUser]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/')
-    }
-  }, [isAuthenticated])
-
   return (
     <div className="App">
       <Routes>
@@ -51,11 +45,15 @@ function App(props: any) {
         />
         <Route
           path='/login'
-          element={<LoginPage/>}
+          element={<LoginPage
+            isAuthenticated={isAuthenticated}
+          />}
         />
         <Route
           path='/signup'
-          element={<SignupPage/>}
+          element={<SignupPage
+            isAuthenticated={isAuthenticated}
+          />}
         />
         <Route
           path='*'

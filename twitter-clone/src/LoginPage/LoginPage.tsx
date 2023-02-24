@@ -1,15 +1,26 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {FC, useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import './LoginPage.css';
 import TextInput from "../common/TextInput/TextInput";
 import SubmitButton from "../common/Button/Button";
 import {Form, Formik} from "formik";
 import { LoginValidationSchema } from "../validation/validationSchema";
 
-const LoginPage = () => {
+const LoginPage: FC<{
+  isAuthenticated: boolean
+}> = (props) => {
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (props.isAuthenticated) {
+      navigate('/')
+    }
+  }, [props.isAuthenticated])
+
   const handleLogin = () => {
     console.log('login')
   }
+
+
 
   return (
     <>

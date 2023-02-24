@@ -17,10 +17,17 @@ import {setIsAuthenticated} from "../redux/actions/isAuthenticatedActions";
 
 const SignupPage: FC<{
   actions: any,
-  currentUser: boolean
+  currentUser: boolean,
+  isAuthenticated: boolean
 }> = (props) => {
   const {actions, currentUser} = props
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (props.isAuthenticated) {
+      navigate('/')
+    }
+  }, [props.isAuthenticated])
 
   const handleSubmit = (userData: UserType) => {
     actions
