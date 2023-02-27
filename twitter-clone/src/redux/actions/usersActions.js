@@ -34,9 +34,9 @@ export const addUser = (user) => {
         })
 
         setCurrentUser({
-              id: user.id,
-              name: user.name
-            })
+          id: user.id,
+          name: user.name
+        })
 
         // dispatch({
         //   type: types.SET_CURRENT_USER,
@@ -49,6 +49,29 @@ export const addUser = (user) => {
         alert('user created. redirecting to login page')
       })
 
+      .catch(error => {
+        throw error
+      })
+  }
+}
+
+export const findUser = (user) => {
+  return (dispatch) => {
+    return usersApi
+      .getUser(user)
+      .then((user) => {
+        dispatch({
+          type: types.FIND_USER,
+          user
+        })
+
+        setCurrentUser({
+          id: user.id,
+          name: user.name
+        })
+
+        alert('successfully logged in')
+      })
       .catch(error => {
         throw error
       })

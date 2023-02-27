@@ -20,16 +20,17 @@ const SignupPage: FC<{
   currentUser: boolean,
   isAuthenticated: boolean
 }> = (props) => {
-  const {actions, currentUser} = props
+  const {actions, currentUser, isAuthenticated} = props
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (props.isAuthenticated) {
+    if (isAuthenticated) {
       navigate('/')
     }
-  }, [props.isAuthenticated])
+  }, [isAuthenticated])
 
   const handleSubmit = (userData: UserType) => {
+    console.log(userData)
     actions
       .addUser(userData)
       .then(() => {

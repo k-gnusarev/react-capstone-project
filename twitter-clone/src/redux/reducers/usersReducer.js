@@ -13,6 +13,11 @@ const usersReducer = (state = initialState.users, action) => {
         user
       ]
     }
+    case types.FIND_USER: {
+      return [
+        ...state
+      ]
+    }
     default:
       return state
   }

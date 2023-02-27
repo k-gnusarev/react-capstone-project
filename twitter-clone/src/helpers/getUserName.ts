@@ -20,6 +20,7 @@ const mockUsers = [
 ]
 
 const getUserName = (authorId: string, users: UserType[]): string => {
+  console.log(authorId, users)
   const matchingUser = users.find((user: UserType) => user.id === authorId)
 
   if (matchingUser!.name) {

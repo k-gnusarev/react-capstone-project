@@ -13,6 +13,7 @@ const Header: FC<{
   //const currentUsername = 'John Smith' // load from context
 
   const {currentUser} = props
+  // console.log(store.getState())
   return (
     <header>
       <div className='header__logo-section'>
@@ -21,8 +22,8 @@ const Header: FC<{
       </div>
       <div className='header__avatar-section'>
         <span>
-          {/*{currentUser.name}*/}
-          {'John Smith'}
+          {currentUser ? currentUser.name : 'Loading username...'}
+          {/*{'John Smith'}*/}
           {/*{getUserName(currentUsername, store.getState().users)}*/}
         </span>
         <div className='header__avatar' >

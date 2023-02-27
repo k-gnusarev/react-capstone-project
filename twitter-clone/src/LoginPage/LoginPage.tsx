@@ -5,22 +5,49 @@ import TextInput from "../common/TextInput/TextInput";
 import SubmitButton from "../common/Button/Button";
 import {Form, Formik} from "formik";
 import { LoginValidationSchema } from "../validation/validationSchema";
+import {UserType} from "../types/types";
+import {bindActionCreators} from "redux";
+import * as usersActions from "../redux/actions/usersActions";
+import * as currentUserActions from "../redux/actions/currentUserActions";
+import * as isAuthenticatedActions from "../redux/actions/isAuthenticatedActions";
+import {connect} from "react-redux";
+import {getUser} from "../api/usersApi";
+import getUserName from "../helpers/getUserName";
+import {store} from "../index";
 
 const LoginPage: FC<{
+  actions: any,
   isAuthenticated: boolean
 }> = (props) => {
+  const {actions} = props
   const navigate = useNavigate()
+
   useEffect(() => {
     if (props.isAuthenticated) {
       navigate('/')
     }
   }, [props.isAuthenticated])
 
-  const handleLogin = () => {
-    console.log('login')
+  const handleLogin = (userData: UserType) => {
+    actions
+      // .addUser(userData)
+      .findUser(userData)
+
+      .then(() => {
+        actions
+          .setCurrentUser({
+            id: userData.id,
+            name: getUserName(userData.id as string, store.getState().users)
+          })
+
+        actions
+          .setIsAuthenticated(true)
+
+      })
+      .catch((error: Error) => {
+        console.error(error)
+      })
   }
-
-
 
   return (
     <>
@@ -32,11 +59,11 @@ const LoginPage: FC<{
         </h1>
         <Formik
           initialValues={{
-            login: '',
+            id: '',
             password: ''
           }}
           validationSchema={LoginValidationSchema}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(formData) => handleLogin(formData)}
         >
           {
             ({errors, touched}) => (
@@ -44,10 +71,10 @@ const LoginPage: FC<{
                 className='login-page__form'
               >
                 <TextInput
-                  placeholder='Email'
-                  name='login'
-                  touched={touched.login}
-                  errors={errors.login}
+                  placeholder='Username'
+                  name='id'
+                  touched={touched.id}
+                  errors={errors.id}
                 />
                 <TextInput
                   placeholder='Password'
@@ -80,4 +107,25 @@ const LoginPage: FC<{
   )
 }
 
-export default LoginPage
+
+function mapStateToProps(state: any) {
+  return {
+    user: state.user,
+    currentUser: state.currentUser
+  }
+}
+
+function mapDispatchToProps(dispatch: any) {
+  return {
+    actions: {
+      findUser: bindActionCreators(usersActions.findUser, dispatch),
+      setCurrentUser: bindActionCreators(currentUserActions.setCurrentUser, dispatch),
+      setIsAuthenticated: bindActionCreators(isAuthenticatedActions.setIsAuthenticated, dispatch)
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage)

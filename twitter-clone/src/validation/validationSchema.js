@@ -21,12 +21,11 @@ export const SignupValidationSchema = Yup.object({
   name: Yup.string()
     .min(1, errorMessages.min1)
     .max(512, errorMessages.max512),
-  username: Yup.string()
+  id: Yup.string().required
 });
 
 export const LoginValidationSchema = Yup.object({
-  login: Yup.string()
-    .email(errorMessages.email)
+  id: Yup.string()
     .required(errorMessages.required),
   password: Yup.string()
     .min(8, errorMessages.min8)
