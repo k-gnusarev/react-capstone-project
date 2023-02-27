@@ -21,7 +21,6 @@ export const addUser = (user) => {
 }
 
 export const getUser = user => {
-  const body = JSON.stringify(user)
   return fetch(BASE_URL + `users/${user.id}`, {
     headers: {
       "content-type": "application/json"

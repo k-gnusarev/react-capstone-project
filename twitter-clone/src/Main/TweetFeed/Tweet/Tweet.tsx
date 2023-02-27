@@ -9,8 +9,8 @@ const Tweet: FC<{
   text: string,
   id: string
 }> = (props) => {
-  console.log(store.getState())
-  const userName = getUserName(props.authorId, store.getState().users)
+  const {users} = store.getState()
+  const userName = getUserName(props.authorId, users)
 
   return (
     <div

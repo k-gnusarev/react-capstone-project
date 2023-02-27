@@ -4,22 +4,38 @@ import './LoginPage.css';
 import TextInput from "../common/TextInput/TextInput";
 import SubmitButton from "../common/Button/Button";
 import {Form, Formik} from "formik";
-import { LoginValidationSchema } from "../validation/validationSchema";
+import {LoginValidationSchema} from "../validation/validationSchema";
 import {UserType} from "../types/types";
 import {bindActionCreators} from "redux";
 import * as usersActions from "../redux/actions/usersActions";
 import * as currentUserActions from "../redux/actions/currentUserActions";
 import * as isAuthenticatedActions from "../redux/actions/isAuthenticatedActions";
 import {connect} from "react-redux";
-import {getUser} from "../api/usersApi";
 import getUserName from "../helpers/getUserName";
 import {store} from "../index";
+
+/*
+ * I had an issue implementing the login process
+ * regarding sending credential information.
+ * When I send password as a field in body function,
+ * the backend always returns the requested user
+ * even when the password is incorrect.
+ * I couldn't find out the correct way to send the
+ * password to be checked.
+ * Also, it complains that I cannot send a GET
+ * fetch() request
+ *
+ * Sorry for asking it in a comment
+ *
+ * TODO: implement sending login credentials
+ */
 
 const LoginPage: FC<{
   actions: any,
   isAuthenticated: boolean
 }> = (props) => {
   const {actions} = props
+  const {users} = store.getState()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -30,14 +46,13 @@ const LoginPage: FC<{
 
   const handleLogin = (userData: UserType) => {
     actions
-      // .addUser(userData)
       .findUser(userData)
 
       .then(() => {
         actions
           .setCurrentUser({
             id: userData.id,
-            name: getUserName(userData.id as string, store.getState().users)
+            name: getUserName(userData.id as string, users)
           })
 
         actions
@@ -106,7 +121,6 @@ const LoginPage: FC<{
     </>
   )
 }
-
 
 function mapStateToProps(state: any) {
   return {

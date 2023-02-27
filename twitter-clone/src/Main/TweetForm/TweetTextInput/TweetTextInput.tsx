@@ -1,16 +1,12 @@
 import React from "react";
-import {Field, useField} from "formik";
+import {Field} from "formik";
 
-const TweetTextInput = () => {
-  //const [field, meta] = useField()
-
-  return (
+const TweetTextInput = () => (
     <Field
       type='textarea'
       name='text'
       placeholder="What's happening?"
     />
   )
-}
 
 export default TweetTextInput

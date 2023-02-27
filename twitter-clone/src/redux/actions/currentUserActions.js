@@ -1,5 +1,4 @@
 import * as types from "./actionTypes";
-import {setIsAuthenticated} from "./isAuthenticatedActions";
 
 export const setCurrentUser = (currentUser) => {
   return (dispatch) => {
@@ -10,10 +9,6 @@ export const setCurrentUser = (currentUser) => {
     } else {
       dispatch(setCurrentUserAction(JSON.parse(storedUser)))
     }
-
-    // if (storedUser) {
-    //   dispatch(setIsAuthenticated(true))
-    // }
   }
 }
 

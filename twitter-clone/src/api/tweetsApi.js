@@ -7,9 +7,9 @@ export const getTweets = () => {
     .catch(handleError)
 }
 
-export const addTweet = (tweet) => {
+export const addTweet = (tweet, author_id) => {
   const body = JSON.stringify({
-    author_id: 'johnsmith',
+    author_id,
     ...tweet
   })
   return fetch(BASE_URL + 'tweets', {

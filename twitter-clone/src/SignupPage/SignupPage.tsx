@@ -1,5 +1,5 @@
-import React, {FC, useContext, useEffect} from "react";
-import {Link, redirect, useNavigate} from "react-router-dom";
+import React, {FC, useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import './SignupPage.css';
 import TextInput from "../common/TextInput/TextInput";
 import SubmitButton from "../common/Button/Button";
@@ -11,16 +11,13 @@ import * as currentUserActions from "../redux/actions/currentUserActions";
 import * as isAuthenticatedActions from "../redux/actions/isAuthenticatedActions";
 import {connect} from "react-redux";
 import {UserType} from "../types/types";
-import * as types from '../redux/actions/actionTypes'
-import {store} from "../index";
-import {setIsAuthenticated} from "../redux/actions/isAuthenticatedActions";
 
 const SignupPage: FC<{
   actions: any,
   currentUser: boolean,
   isAuthenticated: boolean
 }> = (props) => {
-  const {actions, currentUser, isAuthenticated} = props
+  const {actions, isAuthenticated} = props
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -30,7 +27,6 @@ const SignupPage: FC<{
   }, [isAuthenticated])
 
   const handleSubmit = (userData: UserType) => {
-    console.log(userData)
     actions
       .addUser(userData)
       .then(() => {
@@ -106,7 +102,6 @@ const SignupPage: FC<{
                 </Form>
               )
             }
-
           }
         </Formik>
       </div>

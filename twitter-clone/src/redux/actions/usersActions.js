@@ -1,7 +1,5 @@
 import * as types from './actionTypes'
 import * as usersApi from '../../api/usersApi'
-import {useContext} from "react";
-import {SET_CURRENT_USER} from "./actionTypes";
 import {setCurrentUser} from "./currentUserActions";
 
 export const loadUsers = () => {
@@ -25,9 +23,6 @@ export const addUser = (user) => {
     return usersApi
       .addUser(user)
       .then((user) => {
-        //user - инфа, пришедшая с апи после создания
-        // нового пользователя
-
         dispatch({
           type: types.ADD_USER,
           user
@@ -37,14 +32,6 @@ export const addUser = (user) => {
           id: user.id,
           name: user.name
         })
-
-        // dispatch({
-        //   type: types.SET_CURRENT_USER,
-        //   currentUser: {
-        //     id: user.id,
-        //     name: user.name
-        //   }
-        // })
 
         alert('user created. redirecting to login page')
       })

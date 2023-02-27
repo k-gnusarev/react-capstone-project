@@ -1,6 +1,6 @@
 export type TweetType = {
-  id: string,
-  author_id: string,
+  id?: string,
+  author_id?: string,
   text: string
 }
 

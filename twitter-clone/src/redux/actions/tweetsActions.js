@@ -1,6 +1,5 @@
 import * as types from './actionTypes'
 import * as tweetsApi from '../../api/tweetsApi'
-import * as usersApi from "../../api/usersApi";
 
 const loadTweetsAction = (tweets) => {
   return {
@@ -29,10 +28,10 @@ export const loadTweets = () => {
   }
 }
 
-export const addTweet = (tweet) => {
+export const addTweet = (tweet, authorId) => {
   return (dispatch) => {
     return tweetsApi
-      .addTweet(tweet)
+      .addTweet(tweet, authorId)
       .then((tweet) => {
         dispatch(addTweetAction(tweet))
       })

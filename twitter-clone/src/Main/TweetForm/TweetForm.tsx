@@ -7,14 +7,16 @@ import SubmitButton from "../../common/Button/Button";
 import {bindActionCreators} from "redux";
 import * as tweetsActions from "../../redux/actions/tweetsActions";
 import {connect} from "react-redux";
+import {TweetType, UserType} from "../../types/types";
 
 const TweetForm: FC<{
+  currentUser: UserType
   actions: any
 }> = (props) => {
-  const {actions} = props
-  const handleSubmitTweet = (tweetData: any) => {
+  const {actions, currentUser} = props
+  const handleSubmitTweet = (tweetData: TweetType) => {
     actions
-      .addTweet(tweetData)
+      .addTweet(tweetData, currentUser.id)
       .catch((error: Error) => {
         console.error(error)
       })
@@ -50,7 +52,7 @@ const TweetForm: FC<{
 
 function mapStateToProps(state: any) {
   return {
-    user: state.user
+    currentUser: state.currentUser
   }
 }
 

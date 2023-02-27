@@ -20,10 +20,9 @@ const TweetFeed: FC<{
       actions
         .loadTweets()
         .then(() => {
-
           setIsLoading(false)
         })
-        .catch((error: any) => console.error(error))
+        .catch((error: Error) => console.error(error))
     }
   }, [])
   return (
@@ -33,14 +32,16 @@ const TweetFeed: FC<{
       {isLoading ?
         <Loader/> :
         tweets
-          .map(tweet => (
-            <Tweet
-              key={tweet.id}
-              authorId={tweet.author_id}
-              text={tweet.text}
-              id={tweet.id}
-            />
-          ))
+          .map(tweet => {
+            return (
+              <Tweet
+                key={tweet.id}
+                authorId={tweet.author_id as string}
+                text={tweet.text}
+                id={tweet.id as string}
+              />
+            )
+          })
           .reverse()
       }
     </div>
