@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import './App.css';
 import LoginPage from "./LoginPage/LoginPage";
 import {Route, Routes} from 'react-router-dom';
@@ -10,15 +10,23 @@ import * as usersActions from './redux/actions/usersActions'
 import * as currentUserActions from './redux/actions/currentUserActions'
 import {connect} from "react-redux";
 import * as isAuthenticatedActions from "./redux/actions/isAuthenticatedActions";
+import {UserType} from "./types/types";
 
-function App(props: any) {
-  const {
+interface Props {
+  actions: any,
+  users: UserType[],
+  currentUser: UserType,
+  isAuthenticated: boolean
+}
+
+
+const App: FC<Props> = ({
     actions,
     users,
     currentUser,
     isAuthenticated
-  } = props
-
+  }: Props
+) => {
   useEffect(() => {
     if (users.length === 0) {
       actions

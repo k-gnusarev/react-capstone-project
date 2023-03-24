@@ -1,15 +1,17 @@
 import React, {FC} from "react";
 import './Button.css'
 
-const SubmitButton: FC<{
+interface Params {
   className?: string,
   value: string,
-}> = (props) => {
+}
+
+const SubmitButton: FC<Params> = ({className = '', value}: Params) => {
   return (
     <input
       type='submit'
-      className={`button ${ props.className || ''}`}
-      value={props.value}
+      className={`button ${className || ''}`}
+      value={value}
     />
   )
 }

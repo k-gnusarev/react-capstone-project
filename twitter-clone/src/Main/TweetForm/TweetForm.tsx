@@ -9,11 +9,15 @@ import * as tweetsActions from "../../redux/actions/tweetsActions";
 import {connect} from "react-redux";
 import {TweetType, UserType} from "../../types/types";
 
-const TweetForm: FC<{
+interface Props {
   currentUser: UserType
   actions: any
-}> = (props) => {
-  const {actions, currentUser} = props
+}
+
+const TweetForm: FC<Props> = ({
+  currentUser,
+  actions
+}: Props) => {
   const handleSubmitTweet = (tweetData: TweetType) => {
     actions
       .addTweet(tweetData, currentUser.id)

@@ -7,12 +7,17 @@ import * as tweetsActions from "../../redux/actions/tweetsActions";
 import {connect} from "react-redux";
 import Loader from "../../common/Loader/Loader";
 
-const TweetFeed: FC<{
+interface Props {
   tweets: TweetType[],
   isAuthenticated: boolean,
   actions: any
-}> = (props) => {
-  const {actions, tweets, isAuthenticated} = props;
+}
+
+const TweetFeed: FC<Props> = ({
+  tweets,
+  isAuthenticated,
+  actions
+}: Props) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

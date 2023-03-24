@@ -4,13 +4,19 @@ import './Tweet.css'
 import getUserName from "../../../helpers/getUserName";
 import {store} from "../../../index";
 
-const Tweet: FC<{
+interface Props {
   authorId: string,
   text: string,
   id: string
-}> = (props) => {
+}
+
+const Tweet: FC<Props> = ({
+  authorId,
+  text,
+  id
+}: Props) => {
   const {users} = store.getState()
-  const userName = getUserName(props.authorId, users)
+  const userName = getUserName(authorId, users)
 
   return (
     <div
@@ -35,7 +41,7 @@ const Tweet: FC<{
         </p>
         <p
           className='tweet__text'
-          dangerouslySetInnerHTML={{__html: props.text}}
+          dangerouslySetInnerHTML={{__html: text}}
         />
       </div>
     </div>

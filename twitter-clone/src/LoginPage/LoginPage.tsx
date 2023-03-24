@@ -14,35 +14,20 @@ import {connect} from "react-redux";
 import getUserName from "../helpers/getUserName";
 import {store} from "../index";
 
-/*
- * I had an issue implementing the login process
- * regarding sending credential information.
- * When I send password as a field in body function,
- * the backend always returns the requested user
- * even when the password is incorrect.
- * I couldn't find out the correct way to send the
- * password to be checked.
- * Also, it complains that I cannot send a GET
- * fetch() request
- *
- * Sorry for asking it in a comment
- *
- * TODO: implement sending login credentials
- */
-
-const LoginPage: FC<{
+interface Props {
   actions: any,
   isAuthenticated: boolean
-}> = (props) => {
-  const {actions} = props
+}
+
+const LoginPage: FC<Props> = ({actions, isAuthenticated}: Props) => {
   const {users} = store.getState()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (props.isAuthenticated) {
+    if (isAuthenticated) {
       navigate('/')
     }
-  }, [props.isAuthenticated])
+  }, [isAuthenticated])
 
   const handleLogin = (userData: UserType) => {
     actions

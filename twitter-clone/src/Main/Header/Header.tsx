@@ -5,11 +5,11 @@ import {connect} from "react-redux";
 import {UserType} from "../../types/types";
 import getInitials from "../../helpers/getInitials";
 
-const Header: FC<{
+interface Props {
   currentUser: UserType
-}> = (props) => {
-  const {currentUser} = props
+}
 
+const Header: FC<Props> = ({currentUser}: Props) => {
   return (
     <header>
       <div className='header__logo-section'>

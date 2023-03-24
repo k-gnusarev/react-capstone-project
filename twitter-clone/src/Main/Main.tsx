@@ -6,10 +6,11 @@ import './Main.css'
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-const Main: FC<{
+interface Props {
   isAuthenticated: boolean
-}> = (props) => {
-  const {isAuthenticated} = props
+}
+
+const Main: FC<Props> = ({isAuthenticated}: Props) => {
   const navigate = useNavigate()
 
   useEffect(() => {
